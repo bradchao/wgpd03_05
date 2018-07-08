@@ -66,6 +66,21 @@ var Item9Layer = cc.Layer.extend({
         shape3.setFriction(10);
         this.space.addStaticShape(shape3);
 
+        var stick4 = new cc.DrawNode();
+        stick4.drawSegment(cc.p(cc.winSize.width/2, cc.winSize.height/2),
+            cc.p(0,0),
+            4, cc.color(0,255,0));
+        this.addChild(stick4);
+
+        var staticBody4 = this.space.staticBody;
+        var shape4 = new cp.SegmentShape(staticBody4,
+            cp.v(cc.winSize.width/2, cc.winSize.height/2),
+            cp.v(0,0)
+            ,4);
+        shape4.setElasticity(0.5);
+        shape4.setFriction(0);
+        this.space.addStaticShape(shape4);
+
 
     },
 
@@ -90,7 +105,7 @@ var Item9Layer = cc.Layer.extend({
 
         var shape = new cp.BoxShape(body,64,64);
         shape.setElasticity(0.5);
-        shape.setFriction(5);
+        shape.setFriction(1);
         this.space.addShape(shape);
 
         // cc.log(p == null);
