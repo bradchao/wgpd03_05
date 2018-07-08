@@ -15,7 +15,7 @@ var Item9Layer = cc.Layer.extend({
 
     initPhysics: function () {
         this.space = new cp.Space();
-        this.space.gravity = cp.v(0, -98);
+        this.space.gravity = cp.v(10, -98);
 
         var staticBody = this.space.staticBody;
         var walls = [
@@ -35,6 +35,38 @@ var Item9Layer = cc.Layer.extend({
             wall.setFriction(10);
             this.space.addStaticShape(wall);
         }
+
+        var stick2 = new cc.DrawNode();
+        stick2.drawSegment(cc.p(cc.winSize.width/2, cc.winSize.height/2),
+            cc.p(cc.winSize.width/2,0),
+            4, cc.color(255,0,0));
+        this.addChild(stick2);
+
+        var staticBody2 = this.space.staticBody;
+        var shape2 = new cp.SegmentShape(staticBody2,
+            cp.v(cc.winSize.width/2, cc.winSize.height/2),
+            cp.v(cc.winSize.width/2,0),4);
+        shape2.setElasticity(0.5);
+        shape2.setFriction(10);
+        this.space.addStaticShape(shape2);
+
+
+        var stick3 = new cc.DrawNode();
+        stick3.drawSegment(cc.p(cc.winSize.width/2 + 200, cc.winSize.height/2),
+            cc.p(cc.winSize.width,cc.winSize.height/2),
+            4, cc.color(255,255,0));
+        this.addChild(stick3);
+
+        var staticBody3 = this.space.staticBody;
+        var shape3 = new cp.SegmentShape(staticBody3,
+            cp.v(cc.winSize.width/2+200, cc.winSize.height/2),
+            cp.v(cc.winSize.width,cc.winSize.height/2)
+            ,4);
+        shape3.setElasticity(0.5);
+        shape3.setFriction(10);
+        this.space.addStaticShape(shape3);
+
+
     },
 
     setUpmymouse: function(layer){
@@ -51,6 +83,7 @@ var Item9Layer = cc.Layer.extend({
     },
 
     addBox: function (p) {
+
         var body = new cp.Body(1, cp.momentForBox(1,64,64));
         body.setPos(p);
         this.space.addBody(body);
