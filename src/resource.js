@@ -30,6 +30,7 @@ var res = {
     bg : "res/bg.jpg",
     win : "res/win.wav",
     lose : "res/lose.wav",
+    box : "res/box.png",
 };
 
 var g_resources = [];

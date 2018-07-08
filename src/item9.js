@@ -8,12 +8,14 @@ var Item9Layer = cc.Layer.extend({
         this.initPhysics();
         this.setUpmymouse(this);
 
+        this.scheduleUpdate();
+
         return true;
     },
 
     initPhysics: function () {
         this.space = new cp.Space();
-        this.space.gravity = cp.v(0, -9.8);
+        this.space.gravity = cp.v(0, -98);
 
         var staticBody = this.space.staticBody;
         var walls = [
@@ -41,13 +43,36 @@ var Item9Layer = cc.Layer.extend({
             var mouseListener = {
                 event: cc.EventListener.MOUSE,
                 onMouseDown: function (event) {
-                    
+                    layer.addBox(event.getLocation());
                 },
             };
             cc.eventManager.addListener(mouseListener,this);
         }
     },
 
+    addBox: function (p) {
+        var body = new cp.Body(1, cp.momentForBox(1,64,64));
+        body.setPos(p);
+        this.space.addBody(body);
+
+        var shape = new cp.BoxShape(body,64,64);
+        shape.setElasticity(0.5);
+        shape.setFriction(5);
+        this.space.addShape(shape);
+
+        // cc.log(p == null);
+        var boxSprite = new cc.PhysicsSprite(res.box);
+        boxSprite.setBody(body);
+        boxSprite.setPosition(cc.p(p.x, p.y));
+        this.addChild(boxSprite);
+
+
+    },
+
+
+    update: function () {
+        this.space.step(0.03);
+    },
 
 
 });
