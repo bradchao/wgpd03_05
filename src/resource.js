@@ -27,6 +27,9 @@ var res = {
     s1_plist : "res/s1.plist",
     s1_png : "res/s1.png",
     s1_0025_png : "res/s1_0025.png",
+    bg : "res/bg.jpg",
+    win : "res/win.wav",
+    lose : "res/lose.wav",
 };
 
 var g_resources = [];

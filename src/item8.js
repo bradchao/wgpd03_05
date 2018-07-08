@@ -7,6 +7,7 @@ var Item8Layer = cc.Layer.extend({
     a2:null,
     isBig:false,
     isFadeIn:false,
+    hello:null,
     ctor: async function () {
         this._super();
 
@@ -16,18 +17,34 @@ var Item8Layer = cc.Layer.extend({
         var item4 = new cc.MenuItemFont('test4',this.item4,this);
         var item5 = new cc.MenuItemFont('test5',this.item5,this);
         var item6 = new cc.MenuItemFont('test6',this.item6,this);
+        var item7 = new cc.MenuItemFont('test7',this.item7,this);
+
         item1.attr({x:-400,y:240});
         item2.attr({x:-320,y:240});
         item3.attr({x:-240,y:240});
         item4.attr({x:-160,y:240});
         item5.attr({x:-80,y:240});
         item6.attr({x:0,y:240});
-        var menu = new cc.Menu(item1,item2,item3,item4,item5,item6);
+        item7.attr({x:80,y:240});
+
+        var menu = new cc.Menu(item1,item2,item3,item4,item5,item6,item7);
+
+        this.hello = new cc.Sprite(res.bg);
+        this.hello.attr({x:cc.winSize.width/2, y:cc.winSize.height/2});
+        this.addChild(this.hello);
+        this.hello.scaleX = 4;
+        this.hello.scaleY = 4;
+
         this.addChild(menu);
 
         this.sprite = new cc.Sprite(res.s1_0025_png);
         this.sprite.attr({x:cc.winSize.width/2, y:cc.winSize.height/2});
         this.addChild(this.sprite);
+
+        var ff = cc.Follow.create(this.sprite);
+        this.hello.runAction(ff);
+
+
 
         cc.spriteFrameCache.addSpriteFrames(res.s1_plist,res.s1_png);
         var animFrames = [];
@@ -124,6 +141,19 @@ var Item8Layer = cc.Layer.extend({
         var oo = new cc.FadeOut(0.5);
         this.sprite.runAction(this.isFadeIn?ii:oo);
     },
+
+    item7: function(){
+        //this.sprite.runAction(new cc.Blink(1,10));
+
+        // var a3 = cc.moveBy(2, 400, 400);
+        // var a4 = new cc.EaseIn(a3, 10);
+        // var a5 = new cc.Speed(a3, 4);
+        // this.sprite.runAction(a5);
+
+        cc.audioEngine.playMusic(res.win, false);
+
+    },
+
 
     f1: function(target, mesg){
         // target is-a action node => sprite
